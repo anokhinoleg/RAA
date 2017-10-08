@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/web/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="/"><img src="/web/images/login_icon.png" alt="" width="120" height="110"></a>
+        <h1>Registration &amp Authentication Application</h1>
+        <nav class="navigation" role="navigation">
+            <ul class="">
+                <li><a href="/">Home</a></li>
+                <li><a href="login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <?php if (isset($_SESSION['message'])) { echo "<div style='font-size: 1.4em;' class=\"alert alert-danger text-center\">" . $_SESSION['message'] . "</div>"; } ?>
+    <div class="container">
+        <div class="row">
+            <div class="center-block" style="width: 66%;">
+                <h1>Registration</h1>
+                <form action="register" method="post" novalidate>
+                    <p>Email:
+                        <input type="email" name="email" value="" class="form-control">
+                    <div data-error="email">
+                    </div>
+                    </p>
+                    <p>Username:
+                        <input type="text" name="username" value="" class="form-control">
+                    <div data-error="username">
+                    </div>
+                    </p>
+                    <p>Password:
+                        <input type="password" name="password" class="form-control">
+                    <div data-error="password">
+                    </div>
+                    </p>
+                    <p>Fullname:
+                        <input type="text" name="full_name" value="" class="form-control">
+                    <div data-error="full_name">
+                    </div>
+                    </p>
+                    <p>Birth date:
+                        <input type="date" name="birth_date" value="" class="form-control">
+                    <div data-error="birth_date">
+                    </div>
+                    </p>
+                    <p>Country:
+                        <select name="country_id" id="" class="form-control">
+                            <option value="" >Choose a Country</option>
+                            <?php foreach ($countries as $country) : ?>
+                                <option value="<?= $country['id']; ?>"><?= $country['country_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <div data-error="country_id">
+                    </div>
+                    </p>
+                    <p>Are you agree with terms and conditions
+                        <input type="checkbox" name="condition">
+                    <div data-error="condition">
+                    </div>
+                    </p>
+                    <p><button type="submit" name="submit" class="btn btn-primary">Submit</button></p>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var user = <?php echo $user; ?>;
+        var inputs = Array.prototype.slice.call(document.querySelectorAll('p > input'));
+        for (let i = 0; i < inputs.length; i++) {
+            for (var field in user) {
+                if (inputs[i].getAttribute('name') == field && inputs[i].getAttribute('name') != 'password') {
+                    if (inputs[i].hasAttribute('value')) {
+                        inputs[i].setAttribute('value', user[field]);
+                    }
+                }
+            }
+        }
+
+        var errors = <?php echo $errors; ?>;
+        var errorOutputs = Array.prototype.slice.call(document.querySelectorAll('[data-error]'));
+        for (let i = 0; i < errorOutputs.length; i++) {
+            for (var field in errors) {
+                if (field.indexOf(errorOutputs[i].getAttribute('data-error')) > 0) {
+                    errorOutputs[i].innerHTML = errors[field];
+                    errorOutputs[i].classList.add("alert");
+                    errorOutputs[i].classList.add("alert-danger");
+                }
+                if (errorOutputs[i].getAttribute('data-error') == field) {
+                    errorOutputs[i].innerHTML = errors[field];
+                    errorOutputs[i].classList.add("alert");
+                    errorOutputs[i].classList.add("alert-danger");
+                }
+            }
+        }
+    </script>
+    <?php if (isset($_SESSION['message'])) { unset($_SESSION['message']); } ?>
+</body>
+</html>

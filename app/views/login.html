@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/web/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="/"><img src="/web/images/login_icon.png" alt="" width="120" height="110"></a>
+        <h1>Registration &amp; Authentication Application</h1>
+        <nav class="navigation" role="navigation">
+            <ul class="">
+                <li><a href="/">Home</a></li>
+                <li><a href="register">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <?php if (isset($_SESSION['message'])) { echo "<div style='font-size: 1.4em;' class=\"alert alert-danger text-center\">" . $_SESSION['message'] . "</div>"; } ?>
+    <div class="container">
+        <div class="row">
+            <div class="center-block" style="width: 66%;">
+                <h1>Authentication</h1>
+                <form action="login" method="post">
+                    <p>Username:
+                        <input type="text" name="login" value="<?php if (isset($_SESSION['last_user'])) { echo $_SESSION['last_user']; } ?>" class="form-control">
+                    </p>
+                    <p>Password:
+                        <input type="password" name="password" class="form-control">
+                    </p>
+                    <p><button type="submit" name="submit"  class="btn btn-success">Login <span class="fa fa-lock"></span></button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php if (isset($_SESSION['message'])) { unset($_SESSION['message']); } ?>
+<?php if (isset($_SESSION['last_user'])) { unset($_SESSION['last_user']); } ?>
+</body>
+</html>

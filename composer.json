@@ -1,0 +1,10 @@
+{
+  "autoload": {
+    "psr-4": {
+      "": ["app/", "core/"]
+    }
+  },
+  "require": {
+    "twbs/bootstrap": "^3.3"
+  }
+}
