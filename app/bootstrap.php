@@ -12,7 +12,7 @@
     require dirname(__DIR__) . '/vendor/autoload.php';
 
     //$uri = $_SERVER['QUERY_STRING'];
-    $uri = str_replace('/', '', $_SERVER['REQUEST_URI']);
+    $uri = $_SERVER['REQUEST_URI'];
     $route = new Route();
 
     $route->add('', ['controller' => 'Home', 'action' => 'homeAction']);

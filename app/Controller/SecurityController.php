@@ -10,7 +10,7 @@ class SecurityController extends Controller
     {
         $formHandler = $this->getContainer()->getFormHandler();
         if (isset($_SESSION['user'])) {
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('./');
         }
 
         if ($formHandler->isSubmitted()) {
@@ -19,12 +19,12 @@ class SecurityController extends Controller
             try {
                 if ($database->isValidLogin($user)) {
                     $_SESSION['user'] = $user['login'];
-                    return $this->redirectToRoute('/');
+                    return $this->redirectToRoute('./');
                 }
             } catch (\Exception $e) {
                 $_SESSION['last_user'] = $user['login'];
                 $_SESSION['message'] = $e->getMessage();
-                return $this->redirectToRoute('/login');
+                return $this->redirectToRoute('login');
             }
 
         }
@@ -35,7 +35,7 @@ class SecurityController extends Controller
     {
         if (isset($_SESSION['user'])) {
             unset($_SESSION['user']);
-            return $this->redirectToRoute('/login');
+            return $this->redirectToRoute('login');
         }
     }
 }

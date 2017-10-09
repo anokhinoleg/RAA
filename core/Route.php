@@ -15,8 +15,10 @@ class Route
 
     public function match($uri)
     {
+        $parts = explode('/' , $uri);
+        $last_part = (!empty($parts)? $parts[count($parts)-1]:'');
         foreach ($this->routes as $route => $parameters) {
-            if ($uri == $route) {
+            if ($last_part == $route) {
                 $this->parameters = $parameters;
                 return true;
             }

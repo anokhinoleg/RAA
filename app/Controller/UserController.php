@@ -18,11 +18,11 @@ class UserController extends Controller
                 $database->isUserAlreadyExist($user);
             } catch (\Exception $e) {
                 $_SESSION['message'] = $e->getMessage();
-                return $this->redirectToRoute('/register');
+                return $this->redirectToRoute('register');
             }
             $database->saveUserToDatabase($user);
             $_SESSION['user'] = $user['username'];
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('./');
         }
         return $this->render('/register.html', [
             'errors' => json_encode($formHandler->getErrors()),
